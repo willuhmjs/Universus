@@ -1,0 +1,27 @@
+{
+  "name": "universus",
+  "version": "1.0.0",
+  "description": "universal media downloader to download content from a variety of social media platforms.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willuhm-js/Universus.git"
+  },
+  "keywords": [
+    "downloader",
+    "universal"
+  ],
+  "author": "William Faircloth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/willuhm-js/Universus/issues"
+  },
+  "homepage": "https://github.com/willuhm-js/Universus#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
+}
