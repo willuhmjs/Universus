@@ -4,18 +4,19 @@ const app = express();
 const path = require('path');
 
 // Get platformFinder, downloader
-const downloader = require("./downloader");
-const platformFinder = require("./platformFinder")
+const downloader = require('./downloader');
+const platformFinder = require('./platformFinder')
 
 // Setup body-parser
 const bodyParser = require('body-parser');
 app.use(bodyParser());
 
-// Setup EJS
+// Setup views and public for routing
 const ejs = require('ejs');
 app.engine('ejs', ejs.renderFile);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Main routing
 app.get('/', (req, res) => {
@@ -25,22 +26,22 @@ app.get('/', (req, res) => {
 app.post('/preview', (req, res) => {
   let platform = platformFinder(req.body.link);
   // todo frontend error handling
-  if (!platform) throw new Error("Invalid platform");
+  if (!platform) throw new Error('Invalid platform');
   switch(platform) {
-    case "youtube":
-      res.send("youtube");
+    case 'youtube':
+      res.send('youtube');
       break;
-    case "spotify":
-      res.send("spotify");
+    case 'spotify':
+      res.send('spotify');
       break;
-    case "facebook":
-      res.send("facebook");
+    case 'facebook':
+      res.send('facebook');
       break;
-    case "instagram":
-      res.send("instagram");
+    case 'instagram':
+      res.send('instagram');
       break;
-    case "twitter":
-      res.send("twitter");
+    case 'twitter':
+      res.send('twitter');
   }
 })
 
