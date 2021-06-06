@@ -15,7 +15,7 @@ class Downloader {
 class Youtube extends Downloader {
   constructor(link) {
     super(link)
-    this.youtube = require("ytdl-core");
+    this.youtube = require('ytdl-core');
   }
 
   validateURL() {
@@ -27,7 +27,7 @@ class Youtube extends Downloader {
 class Spotify extends Downloader {
   constructor(link) {
     super(link)
-    this.spotify = require("spdl-core");
+    this.spotify = require('spdl-core');
   }
 
   validateURL() {
@@ -39,7 +39,7 @@ class Spotify extends Downloader {
 class Facebook extends Downloader {
   constructor(link) {
     super(link)
-    this.facebook = require("fbdl-core");
+    this.facebook = require('fbdl-core');
   }
 
   validateURL() {
@@ -51,10 +51,10 @@ class Facebook extends Downloader {
 class Instagram extends Downloader {
   constructor(link) {
     super(link)
-    this.instagram = require("instagram-url-direct");
+    this.instagram = require('instagram-url-direct');
     this.instagram.validateURL = (url) => {
       // todo This is crude, but it'll work for most cases
-      if (link.includes("instagram")) return true;
+      if (link.includes('instagram')) return true;
       return false;
     }
   }
@@ -68,10 +68,10 @@ class Instagram extends Downloader {
 class Twitter extends Downloader {
   constructor(link) {
     super(link)
-    this.twitter = require("twitter-url-direct");
+    this.twitter = require('twitter-url-direct');
     this.twitter.validateURL = (url) => {
       // todo This is crude, but it'll work for most cases
-      if (link.includes("twitter")) return true;
+      if (link.includes('twitter')) return true;
       return false;
     }
   }

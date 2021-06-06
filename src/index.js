@@ -3,8 +3,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-// Get validator
-const Validator = require('./validator')
+// Get platformFinder, downloader
+const downloader = require("./downloader");
+const platformFinder = require("./platformFinder")
 
 // Setup body-parser
 const bodyParser = require('body-parser');
@@ -22,7 +23,25 @@ app.get('/', (req, res) => {
 });
 
 app.post('/preview', (req, res) => {
-  console.log(req.body.url);
+  let platform = platformFinder(req.body.link);
+  // todo frontend error handling
+  if (!platform) throw new Error("Invalid platform");
+  switch(platform) {
+    case "youtube":
+      res.send("youtube");
+      break;
+    case "spotify":
+      res.send("spotify");
+      break;
+    case "facebook":
+      res.send("facebook");
+      break;
+    case "instagram":
+      res.send("instagram");
+      break;
+    case "twitter":
+      res.send("twitter");
+  }
 })
 
 // Listen on port 8080
