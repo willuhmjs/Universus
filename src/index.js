@@ -20,13 +20,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Main routing
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {textElement: '', brTag: ''});
 });
 
 app.post('/preview', (req, res) => {
-  let platform = platformFinder(req.body.link);
-  // todo frontend error handling
-  if (!platform) throw new Error('Invalid platform');
+  try {
+    let platform = platformFinder(req.body.link);
+    if (!platform) return res.render('index.ejs', {textElement: '<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>', brTag: '<br>'})
   switch(platform) {
     case 'youtube':
       res.send('youtube');
@@ -42,6 +42,9 @@ app.post('/preview', (req, res) => {
       break;
     case 'twitter':
       res.send('twitter');
+  }
+  } catch(e) {
+    return res.render('index.ejs', {textElement: '<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform1</p>', brTag: 'br>'})
   }
 })
 
