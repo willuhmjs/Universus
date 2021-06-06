@@ -7,13 +7,16 @@ const path = require('path');
 const ejs = require('ejs');
 app.engine('ejs', ejs.renderFile);
 app.set('view engine', 'ejs');
-
 app.set('views', path.join(__dirname, 'views'));
 
 // Main routing
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+app.post('/preview', (req, res) => {
+  res.json(req.body);
+})
 
 // Listen on port 8080
 app.listen(8080);
