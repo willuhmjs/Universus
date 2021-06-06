@@ -23,7 +23,6 @@ app.get('/', (req, res) => {
 
 app.post('/preview', (req, res) => {
   console.log(req.body.url);
-  const validator = new Validator(req.body.url).getPlatform();
 })
 
 // Listen on port 8080
