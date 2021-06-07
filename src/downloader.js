@@ -22,6 +22,16 @@ class Youtube extends Downloader {
     if (!this.youtube.validateURL(this._link)) return false;
     return true;
   }
+
+  async getMeta() {
+    let data = await this.youtube.getBasicInfo(this._link);
+    return { thumbnail: data.videoDetails.thumbnails[0],title: data.videoDetails.title, id: this.youtube.getURLVideoID(this._link) }
+  }
+
+  download(format) {
+    return this.youtube(this._link, {format: format});
+    // Pipe me to res
+  }
 }
 
 class Spotify extends Downloader {

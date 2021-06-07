@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 
 // Get platformFinder, downloader
-const downloader = require('./downloader');
+const { Youtube } = require('./downloader');
 const platformFinder = require('./platformFinder')
 
 // Setup body-parser
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
   res.render('index', {textElement: '', brTag: ''});
 });
 
-app.post('/preview', (req, res) => {
+app.post('/preview', async (req, res) => {
   try {
     let platform = platformFinder(req.body.link);
     if (!platform) return res.render('index.ejs', {textElement: '<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>', brTag: '<br>'})
@@ -37,7 +37,9 @@ app.post('/preview', (req, res) => {
   };
   switch(platform) {
     case 'youtube':
-      res.send('youtube');
+      const youtube = new Youtube(req.body.link);
+      res.json(await youtube.getMeta())
+      //res.send('youtube');
       break;
     case 'spotify':
       res.send('spotify');
