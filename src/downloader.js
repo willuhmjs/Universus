@@ -19,8 +19,12 @@ class Youtube extends Downloader {
   }
 
   validateURL() {
-    if (!this.youtube.validateURL(this._link)) return false;
-    return true;
+    try {
+      if (!this.youtube.validateURL(this._link)) return false;
+      return true;
+    } catch(e) {
+      return false;
+    }
   }
 
   async getMeta() {
@@ -34,35 +38,4 @@ class Youtube extends Downloader {
   }
 }
 
-class Spotify extends Downloader {
-  constructor(link) {
-    super(link)
-    this.spotify = require('spdl-core');
-  }
-
-  validateURL() {
-    if (!this.spotify.validateURL(this._link)) return false;
-    return true;
-  }
-}
-
-class Twitter extends Downloader {
-  constructor(link) {
-    super(link)
-    this.twitter = require('twitter-url-direct');
-    this.twitter.validateURL = (url) => {
-      // todo This is crude, but it'll work for most cases
-      if (link.includes('twitter')) return true;
-      return false;
-    }
-  }
-
-  validateURL() {
-    if (!this.twitter.validateURL(this._link)) return false;
-    return true;
-  }
-}
-
-module.exports = {
-  Youtube, Spotify, Twitter
-}
+module.exports = { Youtube }

@@ -34,12 +34,10 @@
       <div class="row">
         <div class="col">
         <div class="card flex-md-row">
-          <% if (mediaData.thumbnail) { %>
             <img src="<%= mediaData.thumbnail.url %>" class="d-none d-md-inline" style="width: <%= mediaData.thumbnail.width * 2%>px; height: <%= mediaData.thumbnail.height * 2 %>px;"/>
-          <% } %>
             <div class="card-body ms-1">
               <h3 class="card-title"><%= mediaData.title %></h3>
-              <h4><i style="color: #ff0000;" class="fab fa-<%= mediaData.platform.toLowerCase() %> me-2"></i><%= mediaData.platform %></h4>
+              <h4><i style="color: #ff0000;" class="fab fa-youtube me-2"></i>YouTube</h4>
               <form method="POST" action="/download">
               <input name="url" value="<%= mediaData.link %>" type="hidden"/>
               <input name="platform" value="<%= mediaData.platform %>" type="hidden"/>
@@ -55,7 +53,7 @@
                   </div>
                   <!-- youtube audio options -->
                   <div class="mt-3 me-lg-3">
-                    <h4>Video</h4>
+                    <h4>Audio</h4>
                     <div class="btn-group" role="group" ara-label="Video options">
                       <input type="submit" name="format" value="OGG" class="btn btn-dark"/>
                       <input type="submit" name="format" value="WAV" class="btn btn-dark"/>

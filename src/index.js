@@ -3,9 +3,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-// Get platformFinder, downloader
+// Get downloader
 const { Youtube } = require('./downloader');
-const platformFinder = require('./platformFinder');
 
 // Setup body-parser
 const bodyParser = require('body-parser');
@@ -24,38 +23,16 @@ app.get('/', (req, res) => {
 });
 
 app.post('/preview', async (req, res) => {
-	try {
-		let platform = platformFinder(req.body.link);
-		if (!platform)
-			return res.render('index.ejs', {
-				textElement:
-					'<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>',
-				brTag: '<br>'
-			});
-		switch (platform) {
-			case 'youtube':
-				const youtube = new Youtube(req.body.link);
-				let mediaData = await youtube.getMeta();
-        // { thumbnail, title, link }
-        res.render("preview.ejs", {mediaData});
-				break;
-			case 'spotify':
-				res.send('spotify');
-				break;
-			case 'instagram':
-				res.send('instagram');
-				break;
-			case 'twitter':
-				res.send('twitter');
-		}
-	} catch (e) {
-    return res.send(e);
-		return res.render('index.ejs', {
+	const youtube = new Youtube(req.body.link);
+  let isValid = youtube.validateURL(req.body.link);
+  if (!isValid) return res.render('index.ejs', {
 			textElement:
 				'<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>',
 			brTag: '<br>'
 		});
-	}
+	let mediaData = await youtube.getMeta();
+  // { thumbnail, title, link }
+  res.render("preview.ejs", {mediaData});
 });
 
 app.post('/download', (req, res) =>{
