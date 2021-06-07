@@ -42,9 +42,6 @@ app.post('/preview', async (req, res) => {
 			case 'spotify':
 				res.send('spotify');
 				break;
-			case 'facebook':
-				res.send('facebook');
-				break;
 			case 'instagram':
 				res.send('instagram');
 				break;

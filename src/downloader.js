@@ -46,18 +46,6 @@ class Spotify extends Downloader {
   }
 }
 
-class Facebook extends Downloader {
-  constructor(link) {
-    super(link)
-    this.facebook = require('fbdl-core');
-  }
-
-  validateURL() {
-    if (!this.facebook.validateURL(this._link)) return false;
-    return true;
-  }
-}
-
 class Instagram extends Downloader {
   constructor(link) {
     super(link)
