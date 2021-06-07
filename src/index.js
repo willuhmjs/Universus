@@ -27,6 +27,14 @@ app.post('/preview', (req, res) => {
   try {
     let platform = platformFinder(req.body.link);
     if (!platform) return res.render('index.ejs', {textElement: '<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>', brTag: '<br>'})
+  let exportData = {
+    thumbnailBool: false,
+    thumbnail: "",
+    platform: "",
+    title: "",
+    link: "",
+    id: ""
+  };
   switch(platform) {
     case 'youtube':
       res.send('youtube');
