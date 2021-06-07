@@ -27,7 +27,7 @@ app.post('/preview', async (req, res) => {
   let isValid = youtube.validateURL(req.body.link);
   if (!isValid) return res.render('index.ejs', {
 			textElement:
-				'<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>',
+				'<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid YouTube link!</p>',
 			brTag: '<br>'
 		});
 	let mediaData = await youtube.getMeta();
@@ -36,17 +36,11 @@ app.post('/preview', async (req, res) => {
 });
 
 app.post('/download', (req, res) =>{
-  let { url, platform, format } = req.body;
-  platform = platform.toLowerCase();
+  let { url, format } = req.body;
   format = format.toLowerCase();
-  console.log(url, platform, format)
-  switch(platform) {
-    case "youtube":
-      const youtube = new Youtube(url);
-      res.header('Content-Disposition', `attachment; filename=youtube.${format}`);
-      youtube.download().pipe(res);
-      break;
-  }
+  const youtube = new Youtube(url);
+  res.header('Content-Disposition', `attachment; filename=youtube.${format}`);
+  youtube.download().pipe(res);
 })
 
 // Listen on port 8080

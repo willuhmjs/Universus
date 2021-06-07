@@ -29,7 +29,7 @@ class Youtube extends Downloader {
 
   async getMeta() {
     let data = await this.youtube.getBasicInfo(this._link);
-    return { thumbnail: data.videoDetails.thumbnails[0],title: data.videoDetails.title, link: this._link, platform: 'YouTube' }
+    return { thumbnail: data.videoDetails.thumbnails[0],title: data.videoDetails.title, link: this._link, author: data.videoDetails.author.name }
   }
 
   download(format) {

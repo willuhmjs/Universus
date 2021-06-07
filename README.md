@@ -1,2 +1,2 @@
 # Universus
-A universal media downloader to download content from a variety of social media platforms.
+Universus is a website that allows users to download any YouTube video.
