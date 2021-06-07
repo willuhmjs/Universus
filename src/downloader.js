@@ -46,23 +46,6 @@ class Spotify extends Downloader {
   }
 }
 
-class Instagram extends Downloader {
-  constructor(link) {
-    super(link)
-    this.instagram = require('instagram-url-direct');
-    this.instagram.validateURL = (url) => {
-      // todo This is crude, but it'll work for most cases
-      if (link.includes('instagram')) return true;
-      return false;
-    }
-  }
-
-  validateURL() {
-    if (!this.instagram.validateURL(this._link)) return false;
-    return true;
-  }
-}
-
 class Twitter extends Downloader {
   constructor(link) {
     super(link)
@@ -81,5 +64,5 @@ class Twitter extends Downloader {
 }
 
 module.exports = {
-  Youtube, Spotify, Facebook, Instagram, Twitter
+  Youtube, Spotify, Twitter
 }
