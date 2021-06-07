@@ -32,19 +32,12 @@ app.post('/preview', async (req, res) => {
 					'<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>',
 				brTag: '<br>'
 			});
-		let exportData = {
-			thumbnailBool: false,
-			thumbnail: '',
-			platform: '',
-			title: '',
-			link: '',
-			id: ''
-		};
 		switch (platform) {
 			case 'youtube':
 				const youtube = new Youtube(req.body.link);
-				res.json(await youtube.getMeta());
-				//res.send('youtube');
+				let mediaData = await youtube.getMeta();
+        // { thumbnail, title, link }
+        res.render("preview.ejs", {mediaData});
 				break;
 			case 'spotify':
 				res.send('spotify');
@@ -59,13 +52,28 @@ app.post('/preview', async (req, res) => {
 				res.send('twitter');
 		}
 	} catch (e) {
+    return res.send(e);
 		return res.render('index.ejs', {
 			textElement:
-				'<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform1</p>',
-			brTag: 'br>'
+				'<p style="color: red; margin-top: 0.5rem;">Provided link must be a valid platform!</p>',
+			brTag: '<br>'
 		});
 	}
 });
+
+app.post('/download', (req, res) =>{
+  let { url, platform, format } = req.body;
+  platform = platform.toLowerCase();
+  format = format.toLowerCase();
+  console.log(url, platform, format)
+  switch(platform) {
+    case "youtube":
+      const youtube = new Youtube(url);
+      res.header('Content-Disposition', `attachment; filename=youtube.${format}`);
+      youtube.download().pipe(res);
+      break;
+  }
+})
 
 // Listen on port 8080
 app.listen(8080);
