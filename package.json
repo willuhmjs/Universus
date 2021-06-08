@@ -1,7 +1,7 @@
 {
   "name": "universus",
   "version": "1.0.0",
-  "description": "universal media downloader to download content from a variety of social media platforms.",
+  "description": "Universus is a website that allows users to download any YouTube video.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
